@@ -24,7 +24,7 @@ export default function Regsiter() {
     const [success, setSuccess] = useState("")
     const router = useRouter();
     const { data: session } = useSession();
-    if (session) redirect("/overview")
+    if (session) redirect("/")
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

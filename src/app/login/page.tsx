@@ -24,7 +24,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (session) {
-      router.replace("/overview");
+      router.replace("/");
     }
   }, [session, router]);
 
@@ -35,10 +35,10 @@ export default function LoginForm() {
         username, password, redirect: false
       });
       if (!res || res.error) {
-        setError("Invalid credentials");
+        setError("Username or Password incorrect");
         return;
       }
-      router.replace("/overview");
+      router.replace("/");
     } catch (error) {
       console.log(error);
     }
