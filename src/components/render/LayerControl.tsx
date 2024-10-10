@@ -3,12 +3,12 @@ import { LayersControl, TileLayer } from 'react-leaflet';
 
 const TILE_LAYERS = {
     roadmap: {
-        url: "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}",
-        contributor: "Google",
+        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        contributor: "OpenStreetMap",
     },
     satellite: {
-        url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
-        contributor: "Google",
+        url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        contributor: "ArcGIS",
     },
     hybrid: {
         url: "http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}",
