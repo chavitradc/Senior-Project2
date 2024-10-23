@@ -8,8 +8,8 @@ import {
     SheetDescription,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import LiveStreamVideo from './StreamingVideo';
 import { RescueButton } from './RescueButton';
+import StreamVideo from './StreamingVideo';
 
 type Victim = {
     id: string;
@@ -46,7 +46,7 @@ export const VictimSheet: React.FC<VictimSheetProps> = ({
                     </SheetTitle>
                     <SheetDescription className="space-y-6">
                         <div className="space-y-4">
-                            <LiveStreamVideo streamUrl={'https://content.jwplatform.com/manifests/yp34SRmf.m3u8'} />
+                            <StreamVideo streamUrl={'https://content.jwplatform.com/manifests/yp34SRmf.m3u8'} />
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Status</h3>
                                 <p className="text-gray-600 capitalize">{victim.status}</p>

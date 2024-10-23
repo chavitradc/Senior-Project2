@@ -1,58 +1,36 @@
-import React, { useEffect, useCallback } from 'react';
-import { Control, DomUtil, DomEvent, LatLng } from 'leaflet';
-import { useMapEvents } from 'react-leaflet';
+import React, { useState } from 'react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
-const SearchControl: React.FC = () => {
-    const map = useMapEvents({});
+interface CoordinatesSearchProps {
+    onSearch: (lat: number, lng: number) => void;
+}
 
-    const handleSearch = useCallback(() => {
-        const lat = (document.getElementById('lat-input') as HTMLInputElement).value;
-        const lng = (document.getElementById('lng-input') as HTMLInputElement).value;
+export const CoordinatesSearch: React.FC<CoordinatesSearchProps> = ({ onSearch }) => {
+    const [searchInput, setSearchInput] = useState<string>('');
 
-        if (lat && lng) {
-            const latNum = parseFloat(lat);
-            const lngNum = parseFloat(lng);
-            if (!isNaN(latNum) && !isNaN(lngNum)) {
-                map.flyTo(new LatLng(latNum, lngNum), 18);
-            } else {
-                alert('Invalid latitude or longitude');
-            }
-        } else {
-            alert('Please enter both latitude and longitude');
+    const handleSearch = () => {
+        const [lat, lng] = searchInput.split(',').map(Number);
+        if (!isNaN(lat) && !isNaN(lng)) {
+            onSearch(lat, lng);
         }
-    }, [map]);
+    };
 
-    useEffect(() => {
-        const searchControl = new Control({ position: 'bottomright' });
-        searchControl.onAdd = () => {
-            const container = DomUtil.create('div', 'leaflet-control leaflet-bar');
-            container.style.backgroundColor = 'white';
-            container.style.padding = '5px';
-            container.style.borderRadius = '4px';
-            container.innerHTML = `
-                <input id="lat-input" type="text" placeholder="Latitude" style="width: 100px; margin-right: 5px;">
-                <input id="lng-input" type="text" placeholder="Longitude" style="width: 100px; margin-right: 5px;">
-                <button id="search-button">Search</button>
-            `;
-
-            DomEvent.disableClickPropagation(container);
-
-            const button = container.querySelector('#search-button') as HTMLElement;
-            if (button) {
-                DomEvent.on(button, 'click', handleSearch);
-            }
-
-            return container;
-        };
-
-        searchControl.addTo(map);
-
-        return () => {
-            map.removeControl(searchControl);
-        };
-    }, [map, handleSearch]);
-
-    return null;
+    return (
+        <div className="absolute top-4 right-4 z-[1000] flex">
+            <Input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Latitude,Longitude"
+                className=" border bg-zinc-50 border-gray-300 "
+            />
+            <Button
+                onClick={handleSearch}
+                className=" text-white "
+            >
+                Search
+            </Button>
+        </div>
+    );
 };
-
-export default SearchControl;

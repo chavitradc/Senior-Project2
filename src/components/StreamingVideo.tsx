@@ -5,7 +5,7 @@ interface LiveStreamVideoProps {
     streamUrl: string;
 }
 
-const LiveStreamVideo: React.FC<LiveStreamVideoProps> = ({ streamUrl }) => {
+const StreamVideo: React.FC<LiveStreamVideoProps> = ({ streamUrl }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -27,4 +27,4 @@ const LiveStreamVideo: React.FC<LiveStreamVideoProps> = ({ streamUrl }) => {
     );
 };
 
-export default LiveStreamVideo;
+export default StreamVideo;
